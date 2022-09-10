@@ -1,0 +1,44 @@
+﻿@page
+@model S3_Security_System.Pages.Breaches.DetailsModel
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Breach</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Breach.Staff)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Breach.Staff.Id)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Breach.BreachType)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Breach.BreachType.BreachTypeName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Breach.BreachResp)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Breach.BreachResp)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Breach.DateAndTime)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Breach.DateAndTime)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-page="./Edit" asp-route-id="@Model.Breach?.ID">Edit</a> |
+    <a asp-page="./Index">Back to List</a>
+</div>
