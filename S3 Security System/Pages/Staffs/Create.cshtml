@@ -1,0 +1,81 @@
+﻿@page
+@model S3_Security_System.Pages.Staffs.CreateModel
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<h1>Create</h1>
+
+<h4>Staff</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Staff.S3_Security_SystemUserId" class="control-label"></label>
+                <select asp-for="Staff.S3_Security_SystemUserId" class ="form-control" asp-items="ViewBag.S3_Security_SystemUserId"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Staff.StaffFirstName" class="control-label"></label>
+                <input asp-for="Staff.StaffFirstName" class="form-control" />
+                <span asp-validation-for="Staff.StaffFirstName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Staff.StaffLastName" class="control-label"></label>
+                <input asp-for="Staff.StaffLastName" class="form-control" />
+                <span asp-validation-for="Staff.StaffLastName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Staff.PositionId" class="control-label"></label>
+                <select asp-for="Staff.PositionId" class ="form-control" asp-items="ViewBag.PositionId"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Staff.StaffDateOfBirth" class="control-label"></label>
+                <input asp-for="Staff.StaffDateOfBirth" class="form-control" />
+                <span asp-validation-for="Staff.StaffDateOfBirth" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Staff.StaffAddress" class="control-label"></label>
+                <input asp-for="Staff.StaffAddress" class="form-control" />
+                <span asp-validation-for="Staff.StaffAddress" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Staff.StaffCityId" class="control-label"></label>
+                <select asp-for="Staff.StaffCityId" class ="form-control" asp-items="ViewBag.StaffCityId"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Staff.StaffProvinceId" class="control-label"></label>
+                <select asp-for="Staff.StaffProvinceId" class ="form-control" asp-items="ViewBag.StaffProvinceId"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Staff.StaffZip" class="control-label"></label>
+                <input asp-for="Staff.StaffZip" class="form-control" />
+                <span asp-validation-for="Staff.StaffZip" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Staff.StaffNextOfKinContactName" class="control-label"></label>
+                <input asp-for="Staff.StaffNextOfKinContactName" class="form-control" />
+                <span asp-validation-for="Staff.StaffNextOfKinContactName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Staff.StaffNextOfKinContactNo" class="control-label"></label>
+                <input asp-for="Staff.StaffNextOfKinContactNo" class="form-control" />
+                <span asp-validation-for="Staff.StaffNextOfKinContactNo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

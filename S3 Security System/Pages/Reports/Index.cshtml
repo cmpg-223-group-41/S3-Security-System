@@ -1,0 +1,28 @@
+﻿@page
+@model S3_Security_System.Pages.Reports.IndexModel
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<h1 class="text-center">Select Report</h1>
+<br />
+<div class="text-center">
+    <div>
+        <a class="nav-link text-dark" asp-area="" asp-page="">
+            <button type="button" class="btn btn-primary btn-lg btn-block">Staff On Premises</button>
+        </a>
+    </div>
+    <div>
+        <a class="nav-link text-dark" asp-area="" asp-page="">
+            <button type="button" class="btn btn-primary btn-lg btn-block">Students On Premises</button>
+        </a>
+    </div>
+    <div>
+        <a class="nav-link text-dark" asp-area="" asp-page="">
+            <button type="button" class="btn btn-primary btn-lg btn-block">Visitors On Premises</button>
+        </a>
+    </div>
+</div>
+<hr />
+<a asp-page="../Index">Back to Home</a>

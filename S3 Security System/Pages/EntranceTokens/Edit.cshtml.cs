@@ -36,7 +36,7 @@ namespace S3_Security_System.Pages.EntranceTokens
                 return NotFound();
             }
             EntranceToken = entrancetoken;
-           ViewData["security_systemId"] = new SelectList(_context.Users, "Id", "Id");
+           ViewData["S3_Security_SystemUserId"] = new SelectList(_context.Users, "Id", "Id");
             return Page();
         }
 

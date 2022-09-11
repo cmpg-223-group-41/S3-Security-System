@@ -15,7 +15,7 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Breach[0].Staff)
+                @Html.DisplayNameFor(model => model.Breach[0].S3_Security_SystemUser)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Breach[0].BreachType)
@@ -33,7 +33,7 @@
 @foreach (var item in Model.Breach) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Staff.Id)
+                @Html.DisplayFor(modelItem => item.S3_Security_SystemUser.Id)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.BreachType.BreachTypeName)

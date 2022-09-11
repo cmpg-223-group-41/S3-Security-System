@@ -9,6 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="EntityFramework" Version="6.4.4" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.8" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="6.0.8" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.8" />
@@ -20,7 +21,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Pages\EntranceTokens\" />
+    <Folder Include="Pages\Visitors\" />
+    <Folder Include="Pages\Students\" />
   </ItemGroup>
 
 </Project>

@@ -26,7 +26,7 @@ namespace S3_Security_System.Pages.Registors
             if (_context.Registor != null)
             {
                 Registor = await _context.Registor
-                .Include(r => r.Teacher).ToListAsync();
+                .Include(r => r.S3_Security_SystemUser).ToListAsync();
             }
         }
     }

@@ -16,9 +16,9 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Breach.ID" />
             <div class="form-group">
-                <label asp-for="Breach.StaffId" class="control-label"></label>
-                <select asp-for="Breach.StaffId" class="form-control" asp-items="ViewBag.StaffId"></select>
-                <span asp-validation-for="Breach.StaffId" class="text-danger"></span>
+                <label asp-for="Breach.S3_Security_SystemUserId" class="control-label"></label>
+                <select asp-for="Breach.S3_Security_SystemUserId" class="form-control" asp-items="ViewBag.S3_Security_SystemUserId"></select>
+                <span asp-validation-for="Breach.S3_Security_SystemUserId" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Breach.BreachTypeId" class="control-label"></label>

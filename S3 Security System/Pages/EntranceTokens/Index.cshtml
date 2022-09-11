@@ -18,7 +18,7 @@
                 @Html.DisplayNameFor(model => model.EntranceToken[0].DateObtained)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.EntranceToken[0].User)
+                @Html.DisplayNameFor(model => model.EntranceToken[0].S3_Security_SystemUser)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.EntranceToken[0].AccessGranted)
@@ -39,7 +39,7 @@
                 @Html.DisplayFor(modelItem => item.DateObtained)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.User.Id)
+                @Html.DisplayFor(modelItem => item.S3_Security_SystemUser.Id)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.AccessGranted)

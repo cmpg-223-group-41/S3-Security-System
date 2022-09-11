@@ -75,6 +75,7 @@ namespace S3_Security_System.Areas.Identity.Pages.Account
             [Required]
             [Display(Name = "User Type")]
             public string Discriminator { get; set; }
+            public string[] Discriminators = new[] { "Staff", "Student", "Visitor", };
             /// <summary>
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
             ///     directly from your code. This API may change or be removed in future releases.
@@ -125,9 +126,35 @@ namespace S3_Security_System.Areas.Identity.Pages.Account
 
                 if (result.Succeeded)
                 {
+                    // Create Staff, Student or Visitor and assign to S3_Security_SystemUser
+                    if(Input.Discriminator == "Staff")
+                    {
+                        user.Role = "Staff";
+                        var staff = new Staff { S3_Security_SystemUser = user};
+                        user.Staff = staff;
+                    }
+                    else if(Input.Discriminator == "Student")
+                    {
+                        user.Role = "Student";
+                        var student = new Student { S3_Security_SystemUser = user };
+                        user.Student = student;
+                    }
+                    else if(Input.Discriminator == "Visitor")
+                    {
+                        user.Role = "Visitor";
+                        var visitor = new Visitor { S3_Security_SystemUser = user };
+                        user.Visitor = visitor;
+                        
+                    }
+
+                    await _userManager.UpdateAsync(user);
+
+
+
                     _logger.LogInformation("User created a new account with password.");
 
                     var userId = await _userManager.GetUserIdAsync(user);
+
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                     code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
                     var callbackUrl = Url.Page(

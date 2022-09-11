@@ -11,19 +11,19 @@ namespace S3_Security_System.Models
         [Required]
         [Display(Name = "Date Obtained")]
         [DataType(DataType.Date)]
-        public DateTime DateObtained { get; set; }
+        public DateTime? DateObtained { get; set; }
         [Display(Name = "User")]
         [Required]
-        public string? security_systemId { get; set; }
+        public string? S3_Security_SystemUserId { get; set; }
+        [ForeignKey("S3_Security_SystemUserId")]
         [Required]
-        [ForeignKey("security_systemId")]
-        public S3_Security_SystemUser User { get; set; }
+        public S3_Security_SystemUser? S3_Security_SystemUser { get; set; }
         public bool AccessGranted { get; set; }
         [Display(Name = "Time Of Entry")]
         [DataType(DataType.Time)]
-        public DateTime TimeOfEntry { get; set; } = DateTime.Now;
+        public DateTime? TimeOfEntry { get; set; }
         [Display(Name = "Time Of Exit")]
         [DataType(DataType.Time)]
-        public DateTime TimeOfExit { get; set; } 
+        public DateTime? TimeOfExit { get; set; } 
     }
 }

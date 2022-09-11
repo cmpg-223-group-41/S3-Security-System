@@ -1,0 +1,97 @@
+﻿@page
+@model S3_Security_System.Pages.Staffs.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Staff[0].S3_Security_SystemUser)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Staff[0].StaffFirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Staff[0].StaffLastName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Staff[0].Position)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Staff[0].StaffDateOfBirth)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Staff[0].StaffAddress)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Staff[0].StaffCity)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Staff[0].StaffProvince)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Staff[0].StaffZip)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Staff[0].StaffNextOfKinContactName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Staff[0].StaffNextOfKinContactNo)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Staff) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.S3_Security_SystemUser.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StaffFirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StaffLastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Position.PositionName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StaffDateOfBirth)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StaffAddress)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StaffCity.CityName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StaffProvince.ProvinceName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StaffZip)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StaffNextOfKinContactName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StaffNextOfKinContactNo)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.ID">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.ID">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.ID">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

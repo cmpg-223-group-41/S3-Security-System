@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using S3_Security_System.Areas.Identity.Data;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace S3_Security_System.Models
@@ -10,11 +11,11 @@ namespace S3_Security_System.Models
         [DataType(DataType.Date)]
         public DateTime Date { get; set; }
         [Display(Name = "Teacher")]
+        public string? S3_Security_SystemUserId { get; set; }
+        [ForeignKey("S3_Security_SystemUserId")]
         [Required]
-        public string TeacherId { get; set; }
-        [ForeignKey("TeacherId")]
-        public Staff? Teacher { get; set; }
+        public S3_Security_SystemUser? S3_Security_SystemUser { get; set; }
         [Display(Name = "Students Present")]
-        public List<Student> StudentsPresent { get; set; }
+        public List<Student>? StudentsPresent { get; set; }
     }
 }

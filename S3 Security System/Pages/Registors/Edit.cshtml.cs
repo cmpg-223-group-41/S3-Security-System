@@ -36,7 +36,7 @@ namespace S3_Security_System.Pages.Registors
                 return NotFound();
             }
             Registor = registor;
-           ViewData["TeacherId"] = new SelectList(_context.Staff, "Id", "Id");
+           ViewData["S3_Security_SystemUserId"] = new SelectList(_context.Users, "Id", "Id");
             return Page();
         }
 

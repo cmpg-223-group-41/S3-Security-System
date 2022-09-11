@@ -27,7 +27,7 @@ namespace S3_Security_System.Pages.Breaches
             {
                 Breach = await _context.Breach
                 .Include(b => b.BreachType)
-                .Include(b => b.Staff).ToListAsync();
+                .Include(b => b.S3_Security_SystemUser).ToListAsync();
             }
         }
     }

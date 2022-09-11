@@ -171,10 +171,6 @@ namespace S3_Security_System.Migrations
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Discriminator")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Email")
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
@@ -205,6 +201,10 @@ namespace S3_Security_System.Migrations
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("bit");
 
+                    b.Property<string>("Role")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
 
@@ -226,8 +226,6 @@ namespace S3_Security_System.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
-
-                    b.HasDiscriminator<string>("Discriminator").HasValue("S3_Security_SystemUser");
                 });
 
             modelBuilder.Entity("S3_Security_System.Models.Breach", b =>
@@ -245,18 +243,17 @@ namespace S3_Security_System.Migrations
                     b.Property<int>("BreachTypeId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("DateAndTime")
+                    b.Property<DateTime?>("DateAndTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("StaffId")
-                        .IsRequired()
+                    b.Property<string>("S3_Security_SystemUserId")
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("ID");
 
                     b.HasIndex("BreachTypeId");
 
-                    b.HasIndex("StaffId");
+                    b.HasIndex("S3_Security_SystemUserId");
 
                     b.ToTable("Breach");
                 });
@@ -312,22 +309,23 @@ namespace S3_Security_System.Migrations
                     b.Property<bool>("AccessGranted")
                         .HasColumnType("bit");
 
-                    b.Property<DateTime>("DateObtained")
+                    b.Property<DateTime?>("DateObtained")
+                        .IsRequired()
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("TimeOfEntry")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("TimeOfExit")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("security_systemId")
+                    b.Property<string>("S3_Security_SystemUserId")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<DateTime?>("TimeOfEntry")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("TimeOfExit")
+                        .HasColumnType("datetime2");
+
                     b.HasKey("ID");
 
-                    b.HasIndex("security_systemId");
+                    b.HasIndex("S3_Security_SystemUserId");
 
                     b.ToTable("EntranceToken");
                 });
@@ -380,24 +378,32 @@ namespace S3_Security_System.Migrations
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("TeacherId")
+                    b.Property<string>("S3_Security_SystemUserId")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("ID");
 
-                    b.HasIndex("TeacherId");
+                    b.HasIndex("S3_Security_SystemUserId");
 
                     b.ToTable("Registor");
                 });
 
             modelBuilder.Entity("S3_Security_System.Models.Staff", b =>
                 {
-                    b.HasBaseType("S3_Security_System.Areas.Identity.Data.S3_Security_SystemUser");
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"), 1L, 1);
 
                     b.Property<int?>("PositionId")
                         .IsRequired()
                         .HasColumnType("int");
+
+                    b.Property<string>("S3_Security_SystemUserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("StaffAddress")
                         .HasColumnType("nvarchar(max)");
@@ -428,18 +434,27 @@ namespace S3_Security_System.Migrations
                     b.Property<string>("StaffZip")
                         .HasColumnType("nvarchar(max)");
 
+                    b.HasKey("ID");
+
                     b.HasIndex("PositionId");
+
+                    b.HasIndex("S3_Security_SystemUserId")
+                        .IsUnique();
 
                     b.HasIndex("StaffCityId");
 
                     b.HasIndex("StaffProvinceId");
 
-                    b.HasDiscriminator().HasValue("Staff");
+                    b.ToTable("Staff");
                 });
 
             modelBuilder.Entity("S3_Security_System.Models.Student", b =>
                 {
-                    b.HasBaseType("S3_Security_System.Areas.Identity.Data.S3_Security_SystemUser");
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"), 1L, 1);
 
                     b.Property<int?>("CurrentGrade")
                         .IsRequired()
@@ -453,6 +468,10 @@ namespace S3_Security_System.Migrations
 
                     b.Property<int?>("RegistorID")
                         .HasColumnType("int");
+
+                    b.Property<string>("S3_Security_SystemUserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("StudentAddress")
                         .HasColumnType("nvarchar(max)");
@@ -483,18 +502,31 @@ namespace S3_Security_System.Migrations
                     b.Property<string>("StudentZip")
                         .HasColumnType("nvarchar(max)");
 
+                    b.HasKey("ID");
+
                     b.HasIndex("RegistorID");
+
+                    b.HasIndex("S3_Security_SystemUserId")
+                        .IsUnique();
 
                     b.HasIndex("StudentCityId");
 
                     b.HasIndex("StudentProvinceId");
 
-                    b.HasDiscriminator().HasValue("Student");
+                    b.ToTable("Students");
                 });
 
             modelBuilder.Entity("S3_Security_System.Models.Visitor", b =>
                 {
-                    b.HasBaseType("S3_Security_System.Areas.Identity.Data.S3_Security_SystemUser");
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"), 1L, 1);
+
+                    b.Property<string>("S3_Security_SystemUserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("VisitReason")
                         .HasColumnType("nvarchar(max)");
@@ -507,7 +539,12 @@ namespace S3_Security_System.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasDiscriminator().HasValue("Visitor");
+                    b.HasKey("ID");
+
+                    b.HasIndex("S3_Security_SystemUserId")
+                        .IsUnique();
+
+                    b.ToTable("Visitors");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -569,37 +606,35 @@ namespace S3_Security_System.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("S3_Security_System.Models.Staff", "Staff")
+                    b.HasOne("S3_Security_System.Areas.Identity.Data.S3_Security_SystemUser", "S3_Security_SystemUser")
                         .WithMany()
-                        .HasForeignKey("StaffId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("S3_Security_SystemUserId");
 
                     b.Navigation("BreachType");
 
-                    b.Navigation("Staff");
+                    b.Navigation("S3_Security_SystemUser");
                 });
 
             modelBuilder.Entity("S3_Security_System.Models.EntranceToken", b =>
                 {
-                    b.HasOne("S3_Security_System.Areas.Identity.Data.S3_Security_SystemUser", "User")
+                    b.HasOne("S3_Security_System.Areas.Identity.Data.S3_Security_SystemUser", "S3_Security_SystemUser")
                         .WithMany()
-                        .HasForeignKey("security_systemId")
+                        .HasForeignKey("S3_Security_SystemUserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("User");
+                    b.Navigation("S3_Security_SystemUser");
                 });
 
             modelBuilder.Entity("S3_Security_System.Models.Registor", b =>
                 {
-                    b.HasOne("S3_Security_System.Models.Staff", "Teacher")
+                    b.HasOne("S3_Security_System.Areas.Identity.Data.S3_Security_SystemUser", "S3_Security_SystemUser")
                         .WithMany()
-                        .HasForeignKey("TeacherId")
+                        .HasForeignKey("S3_Security_SystemUserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Teacher");
+                    b.Navigation("S3_Security_SystemUser");
                 });
 
             modelBuilder.Entity("S3_Security_System.Models.Staff", b =>
@@ -607,6 +642,12 @@ namespace S3_Security_System.Migrations
                     b.HasOne("S3_Security_System.Models.Position", "Position")
                         .WithMany()
                         .HasForeignKey("PositionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("S3_Security_System.Areas.Identity.Data.S3_Security_SystemUser", "S3_Security_SystemUser")
+                        .WithOne("Staff")
+                        .HasForeignKey("S3_Security_System.Models.Staff", "S3_Security_SystemUserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -620,6 +661,8 @@ namespace S3_Security_System.Migrations
 
                     b.Navigation("Position");
 
+                    b.Navigation("S3_Security_SystemUser");
+
                     b.Navigation("StaffCity");
 
                     b.Navigation("StaffProvince");
@@ -631,6 +674,12 @@ namespace S3_Security_System.Migrations
                         .WithMany("StudentsPresent")
                         .HasForeignKey("RegistorID");
 
+                    b.HasOne("S3_Security_System.Areas.Identity.Data.S3_Security_SystemUser", "S3_Security_SystemUser")
+                        .WithOne("Student")
+                        .HasForeignKey("S3_Security_System.Models.Student", "S3_Security_SystemUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("S3_Security_System.Models.City", "StudentCity")
                         .WithMany()
                         .HasForeignKey("StudentCityId");
@@ -639,9 +688,31 @@ namespace S3_Security_System.Migrations
                         .WithMany()
                         .HasForeignKey("StudentProvinceId");
 
+                    b.Navigation("S3_Security_SystemUser");
+
                     b.Navigation("StudentCity");
 
                     b.Navigation("StudentProvince");
+                });
+
+            modelBuilder.Entity("S3_Security_System.Models.Visitor", b =>
+                {
+                    b.HasOne("S3_Security_System.Areas.Identity.Data.S3_Security_SystemUser", "S3_Security_SystemUser")
+                        .WithOne("Visitor")
+                        .HasForeignKey("S3_Security_System.Models.Visitor", "S3_Security_SystemUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("S3_Security_SystemUser");
+                });
+
+            modelBuilder.Entity("S3_Security_System.Areas.Identity.Data.S3_Security_SystemUser", b =>
+                {
+                    b.Navigation("Staff");
+
+                    b.Navigation("Student");
+
+                    b.Navigation("Visitor");
                 });
 
             modelBuilder.Entity("S3_Security_System.Models.Registor", b =>

@@ -36,8 +36,8 @@ namespace S3_Security_System.Pages.Breaches
                 return NotFound();
             }
             Breach = breach;
-           ViewData["BreachTypeId"] = new SelectList(_context.Set<BreachType>(), "ID", "BreachTypeName");
-           ViewData["StaffId"] = new SelectList(_context.Staff, "Id", "Id");
+           ViewData["BreachTypeId"] = new SelectList(_context.BreachType, "ID", "BreachTypeName");
+           ViewData["S3_Security_SystemUserId"] = new SelectList(_context.Users, "Id", "Id");
             return Page();
         }
 

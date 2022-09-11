@@ -4,8 +4,11 @@ using S3_Security_System.Areas.Identity.Data;
 
 namespace S3_Security_System.Models
 {
-    public class Visitor : S3_Security_SystemUser
+    public class Visitor
     {
+        public int ID { get; set; }
+        public string? S3_Security_SystemUserId { get; set; }
+        public virtual S3_Security_SystemUser S3_Security_SystemUser { get; set; }
         [Required]
         [Display(Name = "First Name")]
         public string VisitorFirstName { get; set; } = string.Empty;

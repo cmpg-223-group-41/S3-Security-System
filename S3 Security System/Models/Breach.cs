@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using S3_Security_System.Areas.Identity.Data;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace S3_Security_System.Models
@@ -7,10 +8,9 @@ namespace S3_Security_System.Models
     {
         public int ID { get; set; }
         [Display(Name = "Staff")]
-        [Required]
-        public string StaffId { get; set; }
-        [ForeignKey("StaffId")]
-        public Staff Staff { get; set; }
+        public string? S3_Security_SystemUserId { get; set; }
+        [ForeignKey("S3_Security_SystemUserId")]
+        public S3_Security_SystemUser? S3_Security_SystemUser { get; set; }
         [Display(Name = "Breach Type")]
         [Required]
         public int BreachTypeId { get; set; }
@@ -19,10 +19,9 @@ namespace S3_Security_System.Models
         [Required]
         [Display(Name = "Breach Response")]
         public string? BreachResp { get; set; }
-        [Required]
         [Display(Name = "Date Occured")]
         [DataType(DataType.DateTime)]
-        public DateTime DateAndTime { get; set; }
+        public DateTime? DateAndTime { get; set; }
     }
 
     public class BreachType

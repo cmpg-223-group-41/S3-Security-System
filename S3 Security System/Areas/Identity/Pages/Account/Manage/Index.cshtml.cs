@@ -6,10 +6,10 @@ using System;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using S3_Security_System.Areas.Identity.Data;
+using Microsoft.AspNetCore.Identity;
 
 namespace S3_Security_System.Areas.Identity.Pages.Account.Manage
 {

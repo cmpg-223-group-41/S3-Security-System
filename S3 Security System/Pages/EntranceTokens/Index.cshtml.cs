@@ -26,7 +26,7 @@ namespace S3_Security_System.Pages.EntranceTokens
             if (_context.EntranceToken != null)
             {
                 EntranceToken = await _context.EntranceToken
-                .Include(e => e.User).ToListAsync();
+                .Include(e => e.S3_Security_SystemUser).ToListAsync();
             }
         }
     }

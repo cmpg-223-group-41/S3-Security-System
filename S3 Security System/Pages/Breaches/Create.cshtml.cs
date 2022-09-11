@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using S3_Security_System.Areas.Identity.Data;
 using S3_Security_System.Data;
 using S3_Security_System.Models;
 
@@ -12,17 +14,22 @@ namespace S3_Security_System.Pages.Breaches
 {
     public class CreateModel : PageModel
     {
+        private readonly UserManager<S3_Security_SystemUser> _userManager;
+        private readonly SignInManager<S3_Security_SystemUser> _signInManager;
         private readonly S3_Security_System.Data.S3_Security_SystemContext _context;
 
-        public CreateModel(S3_Security_System.Data.S3_Security_SystemContext context)
+        public CreateModel(S3_Security_System.Data.S3_Security_SystemContext context, UserManager<S3_Security_SystemUser> userManager,
+            SignInManager<S3_Security_SystemUser> signInManager)
         {
+            _userManager = userManager;
+            _signInManager = signInManager;
             _context = context;
         }
 
         public IActionResult OnGet()
         {
-        ViewData["BreachTypeId"] = new SelectList(_context.Set<BreachType>(), "ID", "BreachTypeName");
-        ViewData["StaffId"] = new SelectList(_context.Staff, "Id", "Id");
+        ViewData["BreachTypeId"] = new SelectList(_context.BreachType, "ID", "BreachTypeName");
+        ViewData["S3_Security_SystemUserId"] = new SelectList(_context.Users, "Id", "Id");
             return Page();
         }
 
@@ -37,6 +44,9 @@ namespace S3_Security_System.Pages.Breaches
             {
                 return Page();
             }
+
+            Breach.S3_Security_SystemUserId = _userManager.GetUserId(User);
+            Breach.DateAndTime = DateTime.Now;
 
             _context.Breach.Add(Breach);
             await _context.SaveChangesAsync();
