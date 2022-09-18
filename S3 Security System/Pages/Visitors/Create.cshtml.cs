@@ -10,10 +10,9 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using S3_Security_System.Areas.Identity.Data;
 using S3_Security_System.Data;
-using S3_Security_System.Migrations;
 using S3_Security_System.Models;
 
-namespace S3_Security_System.Pages.Staffs
+namespace S3_Security_System.Pages.Visitors
 {
     public class CreateModel : PageModel
     {
@@ -36,6 +35,7 @@ namespace S3_Security_System.Pages.Staffs
             _logger = logger;
             _context = context;
         }
+
         [Required]
         [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
         [DataType(DataType.Password)]
@@ -51,14 +51,13 @@ namespace S3_Security_System.Pages.Staffs
 
         public IActionResult OnGet()
         {
-        ViewData["PositionId"] = new SelectList(_context.Position, "ID", "PositionName");
-        ViewData["StaffCityId"] = new SelectList(_context.City, "ID", "CityName");
-        ViewData["StaffProvinceId"] = new SelectList(_context.Province, "ID", "ProvinceName");
+        ViewData["S3_Security_SystemUserId"] = new SelectList(_context.Users, "Id", "Id");
             return Page();
         }
 
         [BindProperty]
-        public Staff Staff { get; set; } = default!;
+        public Visitor Visitor { get; set; } = default!;
+        
 
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
@@ -71,38 +70,19 @@ namespace S3_Security_System.Pages.Staffs
 
             // link user to staff instance
 
-            Staff.StaffCity = await _context.City.FindAsync(Staff.StaffCityId);
-            Staff.StaffProvince = await _context.Province.FindAsync(Staff.StaffProvinceId);
-            Staff.Position = await _context.Position.FindAsync(Staff.PositionId);
-            Staff.S3_Security_SystemUser = user;
-            Staff.S3_Security_SystemUserId = user.Id;
-            
+            Visitor.S3_Security_SystemUser = user;
+            Visitor.S3_Security_SystemUserId = user.Id;
 
-            if (!ModelState.IsValid || _context.Staff == null || Staff == null)
+
+            if (!ModelState.IsValid || _context.Visitors == null || Visitor == null)
             {
                 return Page();
             }
-            try
-            {
-                if (result.Succeeded)
-                {
-                    // Create Visitor and assign to S3_Security_SystemUser
-                    user.Role = "Staff";
-                    await _userManager.UpdateAsync(user);
-                    _context.Staff.Add(Staff);
-                    await _context.SaveChangesAsync();
 
-                   _logger.LogInformation("User created a new account with password.");
-
-                }
-            }
-            catch
-            {
-                throw new InvalidOperationException($"Can't create an instance of '{nameof(S3_Security_SystemUser)}'. ");
-            }
-
-            
-                
+            user.Role = "Visitor";
+            await _userManager.UpdateAsync(user);
+            _context.Visitors.Add(Visitor);
+            await _context.SaveChangesAsync();
 
             return RedirectToPage("./Index");
         }

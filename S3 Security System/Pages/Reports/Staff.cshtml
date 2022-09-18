@@ -1,0 +1,89 @@
+﻿@page
+@model S3_Security_System.Pages.Reports.StaffModel
+
+@{
+    ViewData["Title"] = "Staff Report";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+<div id="staffreport" class="container">
+<h1>Staff Report</h1>
+
+<p class="text-right" style="text-align: right;">
+    Report Date: @DateTime.Now.ToShortDateString()
+</p>
+<form method="get">
+
+    <div class="form-group">
+        <label for="reportDate">Report Date</label>
+        <input name="reportDate" id="reportDate" class="form-control" type="date" style="width: 160px;" />
+        <input type="submit" value="Update" class="btn btn-primary" />
+    </div>
+</form>
+<br />
+<div class="text-center">
+        <p style="text-decoration: underline; ">Date</p>
+    <p>@ViewBag.reportDate </p>
+</div>
+<table class="table">
+    <thead>
+        <tr>
+           
+            <th>
+                Staff
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EntranceToken[0].S3_Security_SystemUser.Staff.Position)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EntranceToken[0].TimeOfEntry)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EntranceToken[0].TimeOfExit)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.EntranceToken) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.S3_Security_SystemUser.UserName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.S3_Security_SystemUser.Staff.Position.PositionName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TimeOfEntry)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TimeOfExit)
+            </td>
+            
+        </tr>
+}
+    </tbody>
+    
+</table>
+<p style="text-decoration:underline; text-align: right;">Total :@Model.EntranceToken.Count() </p>
+<br />
+
+<div style="text-align: right;" >
+        <input type="button" value="Print Report" onclick="printReport()" class="btn btn-primary" />
+</div>
+<br />
+<h5 class="text-center">*** END OF REPORT ***</h5>
+</div>
+<a asp-page="./Index">Back</a>
+
+
+<script>
+    function printReport() {
+
+        let report = document.getElementById("staffreport").innerHTML;
+        let win = window.open('', '', 'height=800, width=500');
+        win.document.write(report);
+        win.document.close();
+        win.print();
+    }
+</script>
+

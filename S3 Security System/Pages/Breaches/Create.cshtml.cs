@@ -29,7 +29,6 @@ namespace S3_Security_System.Pages.Breaches
         public IActionResult OnGet()
         {
         ViewData["BreachTypeId"] = new SelectList(_context.BreachType, "ID", "BreachTypeName");
-        ViewData["S3_Security_SystemUserId"] = new SelectList(_context.Users, "Id", "Id");
             return Page();
         }
 
@@ -40,14 +39,15 @@ namespace S3_Security_System.Pages.Breaches
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
         {
-          if (!ModelState.IsValid || _context.Breach == null || Breach == null)
+            Breach.S3_Security_SystemUserId = _userManager.GetUserId(User);
+            Breach.S3_Security_SystemUser = await _userManager.GetUserAsync(User);
+            Breach.BreachType = await _context.BreachType.FindAsync(Breach.BreachTypeId);
+            Breach.DateAndTime = DateTime.Now;
+            
+            if (!ModelState.IsValid || _context.Breach == null || Breach == null)
             {
                 return Page();
             }
-
-            Breach.S3_Security_SystemUserId = _userManager.GetUserId(User);
-            Breach.DateAndTime = DateTime.Now;
-
             _context.Breach.Add(Breach);
             await _context.SaveChangesAsync();
 

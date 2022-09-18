@@ -40,7 +40,7 @@ namespace S3_Security_System.Pages.Registors
             _context.Registor.Add(Registor);
             await _context.SaveChangesAsync();
 
-            return RedirectToPage("./Index");
+            return RedirectToPage("~/");
         }
     }
 }

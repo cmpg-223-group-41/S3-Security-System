@@ -15,7 +15,7 @@ namespace S3_Security_System.Models
         [Required]
         public int BreachTypeId { get; set; }
         [ForeignKey("BreachTypeId")]
-        public BreachType BreachType { get; set; }
+        public BreachType? BreachType { get; set; }
         [Required]
         [Display(Name = "Breach Response")]
         public string? BreachResp { get; set; }

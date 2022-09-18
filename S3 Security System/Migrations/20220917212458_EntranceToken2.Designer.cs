@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using S3_Security_System.Data;
 
@@ -11,9 +12,10 @@ using S3_Security_System.Data;
 namespace S3_Security_System.Migrations
 {
     [DbContext(typeof(S3_Security_SystemContext))]
-    partial class S3_Security_SystemContextModelSnapshot : ModelSnapshot
+    [Migration("20220917212458_EntranceToken2")]
+    partial class EntranceToken2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

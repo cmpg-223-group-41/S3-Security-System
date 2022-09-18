@@ -13,7 +13,7 @@ namespace S3_Security_System.Models
         [Display(Name = "Teacher")]
         public string? S3_Security_SystemUserId { get; set; }
         [ForeignKey("S3_Security_SystemUserId")]
-        [Required]
+        
         public S3_Security_SystemUser? S3_Security_SystemUser { get; set; }
         [Display(Name = "Students Present")]
         public List<Student>? StudentsPresent { get; set; }

@@ -2,48 +2,43 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using S3_Security_System.Areas.Identity.Data;
 using S3_Security_System.Data;
 using S3_Security_System.Models;
 
-namespace S3_Security_System.Pages.EntranceTokens
+namespace S3_Security_System.Pages.Students
 {
     public class EditModel : PageModel
     {
-        private readonly UserManager<S3_Security_SystemUser> _userManager;
-        private readonly SignInManager<S3_Security_SystemUser> _signInManager;
         private readonly S3_Security_System.Data.S3_Security_SystemContext _context;
 
-        public EditModel(S3_Security_System.Data.S3_Security_SystemContext context, UserManager<S3_Security_SystemUser> userManager,
-            SignInManager<S3_Security_SystemUser> signInManager)
+        public EditModel(S3_Security_System.Data.S3_Security_SystemContext context)
         {
             _context = context;
-            _userManager = userManager;
-            _signInManager = signInManager;
         }
 
         [BindProperty]
-        public EntranceToken EntranceToken { get; set; } = default!;
+        public Student Student { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
-            if (id == null || _context.EntranceToken == null)
+            if (id == null || _context.Students == null)
             {
                 return NotFound();
             }
 
-            var entrancetoken =  await _context.EntranceToken.FirstOrDefaultAsync(m => m.ID == id);
-            if (entrancetoken == null)
+            var student =  await _context.Students.FirstOrDefaultAsync(m => m.ID == id);
+            if (student == null)
             {
                 return NotFound();
             }
-            EntranceToken = entrancetoken;
+            Student = student;
            ViewData["S3_Security_SystemUserId"] = new SelectList(_context.Users, "Id", "Id");
+           ViewData["StudentCityId"] = new SelectList(_context.City, "ID", "CityName");
+           ViewData["StudentProvinceId"] = new SelectList(_context.Province, "ID", "ProvinceName");
             return Page();
         }
 
@@ -51,16 +46,12 @@ namespace S3_Security_System.Pages.EntranceTokens
         // For more details, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
         {
-            EntranceToken.S3_Security_SystemUserId = _userManager.GetUserId(User);
-            EntranceToken.S3_Security_SystemUser = await _userManager.GetUserAsync(User);
-            EntranceToken.TimeOfExit= DateTime.Now;
-            var errors = ModelState.Values.SelectMany(v => v.Errors);
             if (!ModelState.IsValid)
             {
                 return Page();
             }
 
-            _context.Attach(EntranceToken).State = EntityState.Modified;
+            _context.Attach(Student).State = EntityState.Modified;
 
             try
             {
@@ -68,7 +59,7 @@ namespace S3_Security_System.Pages.EntranceTokens
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!EntranceTokenExists(EntranceToken.ID))
+                if (!StudentExists(Student.ID))
                 {
                     return NotFound();
                 }
@@ -78,12 +69,12 @@ namespace S3_Security_System.Pages.EntranceTokens
                 }
             }
 
-            return RedirectToPage("../Index");
+            return RedirectToPage("./Index");
         }
 
-        private bool EntranceTokenExists(int id)
+        private bool StudentExists(int id)
         {
-          return (_context.EntranceToken?.Any(e => e.ID == id)).GetValueOrDefault();
+          return (_context.Students?.Any(e => e.ID == id)).GetValueOrDefault();
         }
     }
 }

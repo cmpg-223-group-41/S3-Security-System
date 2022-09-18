@@ -23,6 +23,7 @@ using S3_Security_System.Models;
 
 namespace S3_Security_System.Areas.Identity.Pages.Account
 {
+    [AllowAnonymous]
     public class RegisterModel : PageModel
     {
         private readonly SignInManager<S3_Security_SystemUser> _signInManager;
@@ -66,16 +67,16 @@ namespace S3_Security_System.Areas.Identity.Pages.Account
         /// </summary>
         public IList<AuthenticationScheme> ExternalLogins { get; set; }
 
+
+
         /// <summary>
         ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
         ///     directly from your code. This API may change or be removed in future releases.
         /// </summary>
         public class InputModel
         {
-            [Required]
-            [Display(Name = "User Type")]
-            public string Discriminator { get; set; }
-            public string[] Discriminators = new[] { "Staff", "Student", "Visitor", };
+            
+            public string Role { get; set; }
             /// <summary>
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
             ///     directly from your code. This API may change or be removed in future releases.
@@ -84,6 +85,19 @@ namespace S3_Security_System.Areas.Identity.Pages.Account
             [EmailAddress]
             [Display(Name = "Email")]
             public string Email { get; set; }
+
+            [Required]
+            [Display(Name = "First Name")]
+            public string VisitorFirstName { get; set; }
+
+            [Required]
+            [Display(Name = "Last Name")]
+            public string VisitorLastName { get; set; }
+
+            [Required]
+            [DataType(DataType.MultilineText)]
+            [Display(Name = "Reason for visit")]
+            public string VisitReason { get; set; }
 
             /// <summary>
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
@@ -126,26 +140,16 @@ namespace S3_Security_System.Areas.Identity.Pages.Account
 
                 if (result.Succeeded)
                 {
-                    // Create Staff, Student or Visitor and assign to S3_Security_SystemUser
-                    if(Input.Discriminator == "Staff")
-                    {
-                        user.Role = "Staff";
-                        var staff = new Staff { S3_Security_SystemUser = user};
-                        user.Staff = staff;
-                    }
-                    else if(Input.Discriminator == "Student")
-                    {
-                        user.Role = "Student";
-                        var student = new Student { S3_Security_SystemUser = user };
-                        user.Student = student;
-                    }
-                    else if(Input.Discriminator == "Visitor")
-                    {
-                        user.Role = "Visitor";
-                        var visitor = new Visitor { S3_Security_SystemUser = user };
-                        user.Visitor = visitor;
+                    // Create Visitor and assign to S3_Security_SystemUser
+                    
+                     user.Role = "Visitor";
+                     var visitor = new Visitor { S3_Security_SystemUser = user, 
+                         VisitorFirstName = Input.VisitorFirstName, 
+                         VisitorLastName = Input.VisitorLastName, 
+                         VisitReason = Input.VisitReason };
+                     user.Visitor = visitor;
                         
-                    }
+                    
 
                     await _userManager.UpdateAsync(user);
 

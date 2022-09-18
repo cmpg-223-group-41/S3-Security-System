@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using S3_Security_System.Data;
 
@@ -11,9 +12,10 @@ using S3_Security_System.Data;
 namespace S3_Security_System.Migrations
 {
     [DbContext(typeof(S3_Security_SystemContext))]
-    partial class S3_Security_SystemContextModelSnapshot : ModelSnapshot
+    [Migration("20220912002035_Users")]
+    partial class Users
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -309,9 +311,11 @@ namespace S3_Security_System.Migrations
                         .HasColumnType("bit");
 
                     b.Property<DateTime?>("DateObtained")
+                        .IsRequired()
                         .HasColumnType("datetime2");
 
                     b.Property<string>("S3_Security_SystemUserId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime?>("TimeOfEntry")
@@ -376,6 +380,7 @@ namespace S3_Security_System.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("S3_Security_SystemUserId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("ID");
@@ -398,6 +403,7 @@ namespace S3_Security_System.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("S3_Security_SystemUserId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("StaffAddress")
@@ -434,8 +440,7 @@ namespace S3_Security_System.Migrations
                     b.HasIndex("PositionId");
 
                     b.HasIndex("S3_Security_SystemUserId")
-                        .IsUnique()
-                        .HasFilter("[S3_Security_SystemUserId] IS NOT NULL");
+                        .IsUnique();
 
                     b.HasIndex("StaffCityId");
 
@@ -466,6 +471,7 @@ namespace S3_Security_System.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("S3_Security_SystemUserId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("StudentAddress")
@@ -502,8 +508,7 @@ namespace S3_Security_System.Migrations
                     b.HasIndex("RegistorID");
 
                     b.HasIndex("S3_Security_SystemUserId")
-                        .IsUnique()
-                        .HasFilter("[S3_Security_SystemUserId] IS NOT NULL");
+                        .IsUnique();
 
                     b.HasIndex("StudentCityId");
 
@@ -521,6 +526,7 @@ namespace S3_Security_System.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"), 1L, 1);
 
                     b.Property<string>("S3_Security_SystemUserId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("VisitReason")
@@ -537,8 +543,7 @@ namespace S3_Security_System.Migrations
                     b.HasKey("ID");
 
                     b.HasIndex("S3_Security_SystemUserId")
-                        .IsUnique()
-                        .HasFilter("[S3_Security_SystemUserId] IS NOT NULL");
+                        .IsUnique();
 
                     b.ToTable("Visitors");
                 });
@@ -615,7 +620,9 @@ namespace S3_Security_System.Migrations
                 {
                     b.HasOne("S3_Security_System.Areas.Identity.Data.S3_Security_SystemUser", "S3_Security_SystemUser")
                         .WithMany()
-                        .HasForeignKey("S3_Security_SystemUserId");
+                        .HasForeignKey("S3_Security_SystemUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("S3_Security_SystemUser");
                 });
@@ -624,7 +631,9 @@ namespace S3_Security_System.Migrations
                 {
                     b.HasOne("S3_Security_System.Areas.Identity.Data.S3_Security_SystemUser", "S3_Security_SystemUser")
                         .WithMany()
-                        .HasForeignKey("S3_Security_SystemUserId");
+                        .HasForeignKey("S3_Security_SystemUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("S3_Security_SystemUser");
                 });
@@ -639,7 +648,9 @@ namespace S3_Security_System.Migrations
 
                     b.HasOne("S3_Security_System.Areas.Identity.Data.S3_Security_SystemUser", "S3_Security_SystemUser")
                         .WithOne("Staff")
-                        .HasForeignKey("S3_Security_System.Models.Staff", "S3_Security_SystemUserId");
+                        .HasForeignKey("S3_Security_System.Models.Staff", "S3_Security_SystemUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("S3_Security_System.Models.City", "StaffCity")
                         .WithMany()
@@ -666,7 +677,9 @@ namespace S3_Security_System.Migrations
 
                     b.HasOne("S3_Security_System.Areas.Identity.Data.S3_Security_SystemUser", "S3_Security_SystemUser")
                         .WithOne("Student")
-                        .HasForeignKey("S3_Security_System.Models.Student", "S3_Security_SystemUserId");
+                        .HasForeignKey("S3_Security_System.Models.Student", "S3_Security_SystemUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("S3_Security_System.Models.City", "StudentCity")
                         .WithMany()
@@ -687,7 +700,9 @@ namespace S3_Security_System.Migrations
                 {
                     b.HasOne("S3_Security_System.Areas.Identity.Data.S3_Security_SystemUser", "S3_Security_SystemUser")
                         .WithOne("Visitor")
-                        .HasForeignKey("S3_Security_System.Models.Visitor", "S3_Security_SystemUserId");
+                        .HasForeignKey("S3_Security_System.Models.Visitor", "S3_Security_SystemUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("S3_Security_SystemUser");
                 });

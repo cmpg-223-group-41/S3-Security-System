@@ -1,0 +1,55 @@
+﻿@page
+@model S3_Security_System.Pages.Visitors.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Visitor
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Visitor[0].VisitorFirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Visitor[0].VisitorLastName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Visitor[0].VisitReason)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Visitor) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.S3_Security_SystemUser.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.VisitorFirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.VisitorLastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.VisitReason)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.ID">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.ID">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.ID">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

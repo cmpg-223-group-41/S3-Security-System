@@ -6,42 +6,42 @@
     Layout = "~/Pages/Shared/_Layout.cshtml";
 }
 
-<h1>Edit</h1>
 
-<h4>EntranceToken</h4>
+
+<h1 class="text-center">Leave School Grounds</h1>
 <hr />
 <div class="row">
-    <div class="col-md-4">
+    <div class="text-center">
         <form method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="EntranceToken.ID" />
-            <div class="form-group">
+            <div hidden class="form-group">
                 <label asp-for="EntranceToken.DateObtained" class="control-label"></label>
                 <input asp-for="EntranceToken.DateObtained" class="form-control" />
                 <span asp-validation-for="EntranceToken.DateObtained" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div hidden class="form-group">
                 <label asp-for="EntranceToken.S3_Security_SystemUserId" class="control-label"></label>
                 <select asp-for="EntranceToken.S3_Security_SystemUserId" class="form-control" asp-items="ViewBag.S3_Security_SystemUserId"></select>
                 <span asp-validation-for="EntranceToken.S3_Security_SystemUserId" class="text-danger"></span>
             </div>
-            <div class="form-group form-check">
+            <div hidden class="form-group form-check">
                 <label class="form-check-label">
                     <input class="form-check-input" asp-for="EntranceToken.AccessGranted" /> @Html.DisplayNameFor(model => model.EntranceToken.AccessGranted)
                 </label>
             </div>
-            <div class="form-group">
+            <div hidden class="form-group">
                 <label asp-for="EntranceToken.TimeOfEntry" class="control-label"></label>
                 <input asp-for="EntranceToken.TimeOfEntry" class="form-control" />
                 <span asp-validation-for="EntranceToken.TimeOfEntry" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div hidden class="form-group">
                 <label asp-for="EntranceToken.TimeOfExit" class="control-label"></label>
                 <input asp-for="EntranceToken.TimeOfExit" class="form-control" />
                 <span asp-validation-for="EntranceToken.TimeOfExit" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="submit" value="Leave School Grounds" class="btn btn-primary" />
             </div>
         </form>
     </div>

@@ -1,0 +1,109 @@
+﻿@page
+@model S3_Security_System.Pages.Students.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Student
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Student[0].StudentFirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Student[0].StudentLastName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Student[0].StudentDateOfBirth)
+            </th>
+            <!--<th>
+                @Html.DisplayNameFor(model => model.Student[0].CurrentGrade)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Student[0].StudentAddress)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Student[0].StudentCity)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Student[0].StudentProvince)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Student[0].StudentZip)
+            </th>-->
+            <th>
+                @Html.DisplayNameFor(model => model.Student[0].ParentName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Student[0].ParentEmail)
+            </th>
+            <!--<th>
+                @Html.DisplayNameFor(model => model.Student[0].StudentNextOfKinContactName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Student[0].StudentNextOfKinContactNo)
+            </th>-->
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Student) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.S3_Security_SystemUser.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StudentFirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StudentLastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StudentDateOfBirth)
+            </td>
+            <!--<td>
+                @Html.DisplayFor(modelItem => item.CurrentGrade)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StudentAddress)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StudentCity.CityName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StudentProvince.ProvinceName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StudentZip)
+                </td>-->
+            <td>
+                @Html.DisplayFor(modelItem => item.ParentName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ParentEmail)
+            </td>
+            <!--<td>
+                @Html.DisplayFor(modelItem => item.StudentNextOfKinContactName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StudentNextOfKinContactNo)
+            </td>-->
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.ID">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.ID">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.ID">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

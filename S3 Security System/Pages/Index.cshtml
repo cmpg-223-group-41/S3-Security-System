@@ -10,37 +10,55 @@
 @inject UserManager<S3_Security_SystemUser> UserManager
 
 <div class="text-center">
-    <h1 class="display-4">Welcome </h1>
+    <h1 class="display-4">Welcome @UserManager.GetUserAsync(User).Result?.Role</h1>
     @if (SignInManager.IsSignedIn(User))
     {
         <hr />
-        <div>
-            <a class="nav-link text-dark" asp-area="" asp-page="/EntranceTokens/Create">
-                <button type="button" class="btn btn-primary btn-lg btn-block">Create Entrance Token</button>
-            </a>
-        </div>
-        <div>
-            <a class="nav-link text-dark" asp-area="" asp-page="/EntranceTokens/Edit">
-                <button type="button" class="btn btn-primary btn-lg btn-block">Leave School Grounds</button>
-            </a>
-        </div>
-        <hr />
-        <div>
-            <a class="nav-link text-dark" asp-area="" asp-page="/Breaches/Create">
-                <button type="button" class="btn btn-primary btn-lg btn-block">Report Breach</button>
-            </a>
-        </div>
-        <div>
-            <a class="nav-link text-dark" asp-area="" asp-page="/Registors/Create">
-                <button type="button" class="btn btn-primary btn-lg btn-block">Create Register</button>
-            </a>
-        </div>
-        <hr />
-        <div>
-            <a class="nav-link text-dark" asp-area="" asp-page="/Reports/Index">
+        @if(Model.TokenAccess != null){
+            <div>
+                <a class="nav-link text-dark" asp-area="" asp-page="">
+                    <button type="button" class="btn btn-secondary disabled btn-lg btn-block">Create Entrance Token</button>
+                </a>
+            </div>
+            <div>
+                <a class="nav-link text-dark" asp-area="" asp-page="/EntranceTokens/Edit" asp-route-id="@Model.TokenAccess.ID">
+                    <button type="button" class="btn btn-primary btn-lg btn-block">Leave School Grounds</button>
+                </a>
+            </div>
+        }
+        else{
+            <div>
+                <a class="nav-link text-dark" asp-area="" asp-page="/EntranceTokens/Create">
+                    <button type="button" class="btn btn-primary btn-lg btn-block">Create Entrance Token</button>
+                </a>
+            </div>
+            <div>
+                <a class="nav-link text-dark" asp-area="" asp-page="">
+                    <button type="button" class="btn btn-secondary disabled btn-lg btn-block">Leave School Grounds</button>
+                </a>
+            </div>
+        }
+        
+        @if (@UserManager.GetUserAsync(User).Result?.Role == "Staff" || @UserManager.GetUserAsync(User).Result?.Role == "Admin")
+        {
+            <hr />
+            <div>
+                <a class="nav-link text-dark" asp-area="" asp-page="/Breaches/Create">
+                    <button type="button" class="btn btn-primary btn-lg btn-block">Report Breach</button>
+                </a>
+            </div>
+            <div>
+                <a class="nav-link text-dark" asp-area="" asp-page="/Registors/Create">
+                    <button type="button" class="btn btn-primary btn-lg btn-block">Create Register</button>
+                </a>
+            </div>
+            <hr />
+            <div>
+                <a class="nav-link text-dark" asp-area="" asp-page="/Reports/Index">
                 <button type="button" class="btn btn-primary btn-lg btn-block">Reports</button>
             </a>
         </div>
+        }
     }
     else{
         <div>
@@ -52,7 +70,7 @@
           
         <div>
             <div>
-                <a class="nav-link text-dark" asp-area="" asp-page="/Account/Register">
+                <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Register">
                     <button type="button" class="btn btn-primary btn-lg btn-block">Or Register As Visitor</button>
                 </a>
             </div>

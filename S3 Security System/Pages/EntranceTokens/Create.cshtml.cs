@@ -39,20 +39,22 @@ namespace S3_Security_System.Pages.EntranceTokens
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
         {
-            /*if (!ModelState.IsValid || _context.EntranceToken == null || EntranceToken == null)
-              {
-
-                  return Page();
-              }*/
             EntranceToken.S3_Security_SystemUserId = _userManager.GetUserId(User);
+            EntranceToken.S3_Security_SystemUser = await _userManager.GetUserAsync(User);
             EntranceToken.DateObtained = DateTime.Now;
             EntranceToken.AccessGranted = true;
             EntranceToken.TimeOfEntry = DateTime.Now;
+            var errors = ModelState.Values.SelectMany(v => v.Errors);
+            if (!ModelState.IsValid || _context.EntranceToken == null || EntranceToken == null)
+            {
+                return Page();
+            }
+
 
             _context.EntranceToken.Add(EntranceToken);
             await _context.SaveChangesAsync();
 
-            return RedirectToPage("./Index");
+            return RedirectToPage("../Index");
         }
     }
 }

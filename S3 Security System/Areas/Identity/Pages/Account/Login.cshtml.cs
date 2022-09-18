@@ -18,6 +18,7 @@ using S3_Security_System.Areas.Identity.Data;
 
 namespace S3_Security_System.Areas.Identity.Pages.Account
 {
+    [AllowAnonymous]
     public class LoginModel : PageModel
     {
         private readonly SignInManager<S3_Security_SystemUser> _signInManager;

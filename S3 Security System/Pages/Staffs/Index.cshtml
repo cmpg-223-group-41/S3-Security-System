@@ -15,7 +15,7 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Staff[0].S3_Security_SystemUser)
+                Staff
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Staff[0].StaffFirstName)
@@ -42,10 +42,10 @@
                 @Html.DisplayNameFor(model => model.Staff[0].StaffZip)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Staff[0].StaffNextOfKinContactName)
+                Kin
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Staff[0].StaffNextOfKinContactNo)
+                NOK Phone Number
             </th>
             <th></th>
         </tr>
@@ -54,7 +54,7 @@
 @foreach (var item in Model.Staff) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.S3_Security_SystemUser.Id)
+                @Html.DisplayFor(modelItem => item.S3_Security_SystemUser.Email)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.StaffFirstName)
