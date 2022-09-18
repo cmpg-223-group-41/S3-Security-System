@@ -3,9 +3,11 @@
     "secrets1": {
       "type": "secrets.user"
     },
-    "mssql2": {
+    "mssql1": {
+      "secretStore": null,
       "type": "mssql.local",
-      "connectionId": "ConnectionStrings:S3_Security_SystemContextConnection"
+      "connectionId": "ConnectionStrings:S3_Security_SystemContextConnection",
+      "dynamicId": null
     }
   }
 }
