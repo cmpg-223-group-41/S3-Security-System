@@ -16,7 +16,7 @@ To connect the database, right click on `connected Services` to add database
 Once in the `Connect to Dependency` window, select `SQL Server Express localDB(local)` then Next
 ![Screenshot (18)](https://user-images.githubusercontent.com/62944890/190926205-10918ad1-7185-4125-96c2-b0a6b07f387f.png)
 
-In the following menu change connection string name to `ConnectionStrings:S3_Security_SystemContextConnection`
+In the following menu change connection string name to `ConnectionStrings:S3_Security_System`
 
 Select the database file by selecting `...` next to connection string value input
 
